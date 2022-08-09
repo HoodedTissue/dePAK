@@ -1,4 +1,3 @@
-from asyncio.base_futures import _FINISHED
 import sys
 
 if len(sys.argv) < 2:
