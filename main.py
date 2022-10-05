@@ -9,26 +9,33 @@ def main() -> None:
     try:
         operation = sys.argv[1]
         if operation == "unpack":
-            unpack(sys.argv[2])
+            unpack(sys.argv)
         elif operation == "repack":
-            repack(sys.argv[2], sys.argv[3], sys.argv[4])
+            repack(sys.argv)
         else:
-            print("Unknown operation: %s" % operation)
+            print(f"Unknown operation: {operation}")
             print_usage()
     except Exception as e:
         print(e)
         exit(1)
 
-def unpack(file: str) -> None:
-    print(f"Unpacking {file} to {file}_unpacked...")
-    unpack = unpak(file)
+def unpack(args: list) -> None:
+    if (len(args) != 3):
+        print_usage()
+        return()
+    print(f"Unpacking {args[2]} to {args[2]}_unpacked...")
+    unpack = unpak(args[2])
     unpack.extract()
     print("Finished")
 
-def repack(dir: str, out_file: str, orig_file: str) -> None:
-    print(f"Repacking {dir} to {out_file}...")
-    repacker = repak(orig_file)
-    repacker.repack(dir, out_file)
+def repack(args: list) -> None:
+    if (len(args) != 5):
+        print_usage()
+        return()
+
+    print(f"Repacking {args[2]} to {args[3]}...")
+    repacker = repak(args[4])
+    repacker.repack(args[2], args[3])
     print("Finished")
 
 def print_usage() -> None:
